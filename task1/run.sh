@@ -15,7 +15,6 @@ done
 backup_archive_name=$(basename ${backup_archive_name} .gz);
 if ! [ -d ${backup_folder} ] 
     then mkdir ${backup_folder};
-else echo "exist"
 fi
 count=0;
 for new_file in $(find ${input_folder} -type f -name "*.${extension}"); do
