@@ -1,0 +1,8 @@
+/home/dima/playground/task2/project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dima/playground/task2/project/cmake-build-debug/CMakeFiles/indexGenerator.dir
+/home/dima/playground/task2/project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dima/playground/task2/project/cmake-build-debug/CMakeFiles/C.dir
+/home/dima/playground/task2/project/cmake-build-debug/CMakeFiles/CTest.dir
+/home/dima/playground/task2/project/cmake-build-debug/B/CMakeFiles/rebuild_cache.dir
+/home/dima/playground/task2/project/cmake-build-debug/B/CMakeFiles/edit_cache.dir
+/home/dima/playground/task2/project/cmake-build-debug/B/CMakeFiles/NewLib.dir

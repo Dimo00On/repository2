@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="C"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\B\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="indexGenerator">
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 indexGenerator"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C">
+				<Option output="/home/dima/playground/task2/project/bin/C" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/home/dima/playground/task2/project/lib"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 C"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C/fast">
+				<Option output="/home/dima/playground/task2/project/bin/C" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/home/dima/playground/task2/project/lib"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 C/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CTest">
+				<Option output="/home/dima/playground/task2/project/bin/CTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/home/dima/playground/task2/project/lib"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 CTest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CTest/fast">
+				<Option output="/home/dima/playground/task2/project/bin/CTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/home/dima/playground/task2/project/lib"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 CTest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NewLib">
+				<Option output="/home/dima/playground/task2/project/lib/libNewLib.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug/B"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 NewLib"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NewLib/fast">
+				<Option output="/home/dima/playground/task2/project/lib/libNewLib.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dima/playground/task2/project/cmake-build-debug/B"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dima/playground/task2/project/A"/>
+					<Add directory="/home/dima/playground/task2/project/B"/>
+					<Add directory="/home/dima/playground/task2/project/C"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 NewLib/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/dima/playground/task2/project/cmake-build-debug/B/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dima/playground/task2/project/B/lib.cpp">
+			<Option target="NewLib"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/B/lib.h">
+			<Option target="NewLib"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/C/main.cpp">
+			<Option target="C"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/C/main.h">
+			<Option target="C"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/C/main_test.cpp">
+			<Option target="CTest"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/C/othercppfile.cpp">
+			<Option target="CTest"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/dima/playground/task2/project/B/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\B\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../A/index.h
+iostream
+-
+
+../B/lib.h
+iostream
+-
+string
+-
+
+/home/dima/playground/task2/project/C/main.cpp
+main.h
+/home/dima/playground/task2/project/C/main.h
+
+/home/dima/playground/task2/project/C/main.h
+index.h
+/home/dima/playground/task2/project/C/index.h
+lib.h
+/home/dima/playground/task2/project/C/lib.h
+
