@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/C.dir/C/main.cpp.o -o ../bin/C  -Wl,-rpath,/home/dima/playground/task2/project/lib ../lib/libNewLib.so 

@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g -shared -Wl,-soname,libnewLib.so -o ../../lib/libnewLib.so CMakeFiles/newLib.dir/lib.cpp.o 
