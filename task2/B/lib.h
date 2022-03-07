@@ -2,6 +2,4 @@
 #include<string>
 
 //greeting
-std::string hi() {
-    return "Hell World!";
-};
+std::string hi();
