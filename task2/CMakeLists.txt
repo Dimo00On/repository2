@@ -10,7 +10,6 @@ file(MAKE_DIRECTORY bin)
 file(MAKE_DIRECTORY lib)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/B)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 add_custom_command(
         OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/A/index.h
         COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/A/preparing.py ${CMAKE_CURRENT_SOURCE_DIR}/A/index.h
