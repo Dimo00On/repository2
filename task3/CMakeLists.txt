@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+SET(CMAKE_CXX_COMPILER ${TOOLCHAIN}/aarch64-linux-gnu-g++)
 project(SimpleLibrary)
 
 include_directories(include)
 
 #SET(CMAKE_C_COMPILER ${TOOLCHAIN}/aarch64-linux-gnu-gcc)
-SET(CMAKE_CXX_COMPILER ${TOOLCHAIN}/aarch64-linux-gnu-g++)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SimpleLibrary_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SimpleLibrary_SOURCE_DIR}/lib)
 
