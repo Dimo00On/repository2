@@ -1,38 +1,20 @@
 #include "main.h"
+#include "src/Artifact/ArtifactFactory.h"
+#include "src/AbstractFactory/WeakFactory.h"
+#include "src/AbstractFactory/CommonFactory.h"
+#include "src/AbstractFactory/StrongFactory.h"
 
-namespace Cards{
-    extern std::vector<WeakCard*> allWeakCards;
-    extern std::vector<CommonCard*> allCommonCards;
-    extern std::vector<StrongCard*> allStrongCards;
-}
-
-namespace Enemies{
-    extern std::vector<WeakEnemy*> allWeakEnemies;
-    extern std::vector<CommonEnemy*> allCommonEnemies;
-    extern std::vector<StrongEnemy*> allStrongEnemies;
-}
-
-namespace Artifacts{
-    extern std::vector<Artifact> allArtifacts;
-}
-
-void preCalc() {
-    WeakFactory weakFactory;
-    CommonFactory commonFactory;
-    StrongFactory strongFactory;
-    std::vector<EffectType> empty;
-    std::string* emptyDescription = new std::string;
+void createArtifacts() {
     std::vector<bool> forArtifact(3, false);
-    Artifacts::allArtifacts.emplace_back(forArtifact);
-    Cards::allWeakCards.push_back(dynamic_cast<WeakCard*>(weakFactory.createCard(6, 0, emptyDescription, empty, empty)));
-    Cards::allWeakCards.push_back(dynamic_cast<WeakCard*>(weakFactory.createCard(0, 5, emptyDescription, empty, empty)));
-    Cards::allWeakCards.push_back(dynamic_cast<WeakCard*>(weakFactory.createCard(3, 2, emptyDescription, empty, empty)));
-    Cards::allCommonCards.push_back(dynamic_cast<CommonCard*>(commonFactory.createCard(12, 0, emptyDescription, empty, empty)));
-    Cards::allCommonCards.push_back(dynamic_cast<CommonCard*>(commonFactory.createCard(0, 10, emptyDescription, empty, empty)));
-    Cards::allCommonCards.push_back(dynamic_cast<CommonCard*>(commonFactory.createCard(6, 5, emptyDescription, empty, empty)));
-    Cards::allStrongCards.push_back(dynamic_cast<StrongCard*>(strongFactory.createCard(25, 0, emptyDescription, empty, empty)));
-    Cards::allStrongCards.push_back(dynamic_cast<StrongCard*>(strongFactory.createCard(0, 20, emptyDescription, empty, empty)));
-    Cards::allStrongCards.push_back(dynamic_cast<StrongCard*>(strongFactory.createCard(15, 10, emptyDescription, empty, empty)));
+    auto factory = ArtifactFactory::getFactory();
+    factory->create(forArtifact);
+}
+
+void createEnemies() {
+    auto weakFactory = WeakFactory::getFactory();
+    auto commonFactory = CommonFactory::getFactory();
+    auto strongFactory = StrongFactory::getFactory();
+    std::vector<EffectType> empty;
     std::vector<AttackType> attacks;
     {
         AttackType attack1(10, 0, empty, empty);
@@ -44,7 +26,7 @@ void preCalc() {
         attacks.push_back(attack2);
         attacks.push_back(attack3);
     }
-    Enemies::allWeakEnemies.push_back(dynamic_cast<WeakEnemy*>(weakFactory.createEnemy(attacks)));
+    weakFactory->createEnemy(attacks);
     attacks.clear();
     {
         AttackType attack1(15, 5, empty, empty);
@@ -56,7 +38,7 @@ void preCalc() {
         attacks.push_back(attack2);
         attacks.push_back(attack3);
     }
-    Enemies::allCommonEnemies.push_back(dynamic_cast<CommonEnemy*>(commonFactory.createEnemy(attacks)));
+    commonFactory->createEnemy(attacks);
     attacks.clear();
     {
         AttackType attack1(20, 10, empty, empty);
@@ -70,18 +52,42 @@ void preCalc() {
         attacks.push_back(attack3);
         attacks.push_back(attack4);
     }
-    Enemies::allStrongEnemies.push_back(dynamic_cast<StrongEnemy*>(strongFactory.createEnemy(attacks)));
+    strongFactory->createEnemy(attacks);
     attacks.clear();
 }
 
+void createCards() {
+    auto weakFactory = WeakFactory::getFactory();
+    auto commonFactory = CommonFactory::getFactory();
+    auto strongFactory = StrongFactory::getFactory();
+    std::vector<EffectType> empty;
+    auto emptyDescription = new std::string;
+    weakFactory->createCard(6, 0, emptyDescription, empty, empty);
+    weakFactory->createCard(0, 5, emptyDescription, empty, empty);
+    weakFactory->createCard(3, 2, emptyDescription, empty, empty);
+    commonFactory->createCard(12, 0, emptyDescription, empty, empty);
+    commonFactory->createCard(0, 10, emptyDescription, empty, empty);
+    commonFactory->createCard(6, 5, emptyDescription, empty, empty);
+    strongFactory->createCard(25, 0, emptyDescription, empty, empty);
+    strongFactory->createCard(0, 20, emptyDescription, empty, empty);
+    strongFactory->createCard(15, 10, emptyDescription, empty, empty);
+}
+
+void preCalc() {
+    createArtifacts();
+    createCards();
+    createEnemies();
+}
+
 void clear() {
-    Enemies::allStrongEnemies.clear();
-    Enemies::allCommonEnemies.clear();
-    Enemies::allWeakEnemies.clear();
-    Cards::allWeakCards.clear();
-    Cards::allCommonCards.clear();
-    Cards::allStrongCards.clear();
-    Artifacts::allArtifacts.clear();
+    auto artifactFactory = ArtifactFactory::getFactory();
+    delete artifactFactory;
+    auto weakFactory = WeakFactory::getFactory();
+    delete weakFactory;
+    auto commonFactory = CommonFactory::getFactory();
+    delete commonFactory;
+    auto strongFactory = StrongFactory::getFactory();
+    delete strongFactory;
 }
 
 int main() {
