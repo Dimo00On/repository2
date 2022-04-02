@@ -2,6 +2,8 @@
 #include "../Enemy/WeakEnemy.h"
 #include "../Enemy/CommonEnemy.h"
 #include "../Enemy/StrongEnemy.h"
+#include "InterfaceChooser.h"
+
 
 extern bool timeToExit;
 
@@ -15,118 +17,61 @@ GameProcess::GameProcess(Map& newMap, PlayerGameObject& newPlayer) : map(newMap)
 
 void GameProcess::startChill() {
     int recover = std::min(kChillHpRecovery, kPlayerBaseHp - playerGameObject.sayHp());
-    std::cout << "You rested and restored some hp(" << recover << ")" << '\n';
+    std::vector<int> temp(1);
+    temp[0] = recover;
     playerGameObject.takeDamage(-recover);
+    InterfaceChooser::write(kChosenInterface, "rest", &temp, nullptr);
 }
 
 Room* GameProcess::changeRoom(std::pair<int, int> direction) {
     position.first += direction.first;
     position.second += direction.second;
-    return map.rooms[position.first][position.second];
-}
-
-void GameProcess::showMap() {
-    for (int i = 0; i < map.rooms[0].size(); ++i) {
-        for (int j = position.first - 1; j < static_cast<int>(map.rooms.size()); ++j) {
-            if (j == position.first - 1) {
-                if (i == position.second) {
-                    std::cout << "you here ->|";
-                }
-                else {
-                    std::cout << "           |";
-                }
-            } else {
-                if (j == position.first && i == position.second) {
-                    std::cout << "you|";
-                } else {
-                    auto thisRoom = map.rooms[j][i];
-                    if (thisRoom->sayIsEmpty()) {
-                        std::cout << " . |";
-                    } else {
-                        if (thisRoom->sayType() == RoomType::Chill) {
-                            std::cout << " " << 0 << " |";
-                        }
-                        if (thisRoom->sayType() == RoomType::Combat) {
-                            auto room = dynamic_cast<CombatRoom *>(map.rooms[j][i]);
-                            std::cout << " " << static_cast<int>(room->sayDifficulty()) << " |";
-                        }
-                        if (thisRoom->sayType() == RoomType::End) {
-                            std::cout << "end|";
-                        }
-                    }
-                }
-            }
-        }
-        std::cout <<'\n';
-    }
+    return map.showMap()[position.first][position.second];
 }
 
 Room* GameProcess::changingPosition() {
     bool ok = false;
     std::pair<int, int> direction;
     while (!ok && !timeToExit) {
-        showMap();
-        std::cout << "|1|2| |" << '\n';
-        std::cout << "|I|3|4|" << '\n';
-        std::cout << "|5|6| |" << '\n';
-        std::cout << "Choose command:" << '\n';
-        std::cout << "Exit - 0" << '\n';
-        if (position.second > 0) {
-            std::cout << "Go up - 1" << '\n';
-            if (position.first + 1 < map.rooms.size()) {
-                std::cout << "Go up-right - 2" << '\n';
-            }
-        }
-        if (position.first + 1 < map.rooms.size()) {
-            std::cout << "Go right - 3" << '\n';
-            if (position.first + 3 < map.rooms.size()) {
-                std::cout << "Go double right - 4" << '\n';
-            }
-        }
-        if (position.second + 1 < map.rooms[position.first].size()) {
-            std::cout << "Go down - 5" << '\n';
-            if (position.first + 1 < map.rooms.size()) {
-                std::cout << "Go down-right - 6" << '\n';
-            }
-        }
-        std::string command;
-        std::cin >> command;
-        if (command == "0") {
+        InterfaceChooser::showMap(kChosenInterface, map, position);
+        InterfaceChooser::showPaths(kChosenInterface, map, position);
+        int answer = InterfaceChooser::read(kChosenInterface);
+        if (answer == 0) {
             timeToExit = true;
             break;
         }
-        if (command == "1" && position.second > 0) {
+        if (answer == 1 && position.second > 0) {
             ok = true;
             direction.first = 0;
             direction.second = -1;
         }
-        if (command == "2" && position.second > 0) {
+        if (answer == 2 && position.second > 0) {
             ok = true;
             direction.first = 1;
             direction.second = -1;
         }
-        if (command == "3" && position.first + 1 < map.rooms.size()) {
+        if (answer == 3 && position.first + 1 < map.showMap().size()) {
             ok = true;
             direction.first = 1;
             direction.second = 0;
         }
-        if (command == "4" && position.first + 3 < map.rooms.size()) {
+        if (answer == 4 && position.first + 3 < map.showMap().size()) {
             ok = true;
             direction.first = 2;
             direction.second = 0;
         }
-        if (command == "5" && position.second + 1 < map.rooms[position.first].size()) {
+        if (answer == 5 && position.second + 1 < map.showMap()[position.first].size()) {
             ok = true;
             direction.first = 0;
             direction.second = 1;
         }
-        if (command == "6" && position.second + 1 < map.rooms[position.first].size()) {
+        if (answer == 6 && position.second + 1 < map.showMap()[position.first].size()) {
             ok = true;
             direction.first = 1;
             direction.second = 1;
         }
         if (!ok) {
-            std::cout << "Unknown command" << '\n';
+            InterfaceChooser::write(kChosenInterface, "unknown", nullptr, nullptr);
         }
     }
     return changeRoom(direction);
@@ -145,8 +90,7 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
     int cardPerTurnAmount;
     while (!win && !timeToExit) {
         if (playerGameObject.sayHp() <= 0) {
-            std::cout << "You died" << '\n';
-            std::cout << "Print something to exit" << '\n';
+            InterfaceChooser::write(kChosenInterface, "dead", nullptr, nullptr);
             std::string command;
             std::cin >> command;
             timeToExit = true;
@@ -176,47 +120,47 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
         playerGameObject.takeDefence(newDefence - playerGameObject.sayDefence());
         while (actionAmount > 0 && !timeToExit && !win) {
             damDef = enemy->recalculate(playerGameObject);
-            std::cout << '\n' << "Enemy want to deal " << damDef.first << " damage to you ";
-            std::cout << "and want to gain " << damDef.second << " shield" << '\n';
-            std::cout << "His hp: " << liveEnemy->sayHp() << '\n';
-            std::cout << "His defence: " << liveEnemy->sayDefence() << '\n';
-            std::cout << "Your Actions left: " << actionAmount << '\n';
-            std::cout << "Your hp left: " << playerGameObject.sayHp() << '\n';
-            std::cout << "Your defence: " << playerGameObject.sayDefence() << '\n';
-            std::cout << "Choose card to use:" << '\n';
-            std::cout << 0 << " - Exit" << '\n';
+            std::vector<int> tempValues(7);
+            tempValues[0] = damDef.first;
+            tempValues[1] = damDef.second;
+            tempValues[2] = liveEnemy->sayHp();
+            tempValues[3] = liveEnemy->sayDefence();
+            tempValues[4] = actionAmount;
+            tempValues[5] = playerGameObject.sayHp();
+            tempValues[6] = playerGameObject.sayDefence();
+            InterfaceChooser::showCombatStatus(kChosenInterface, tempValues);
             for (int i = 0; i < hand.size(); ++i) {
                 if (!used[i]) {
                     std::pair<int, int> cardDamDef = hand[i]->realDamDef(&playerGameObject);
-                    std::cout << i + 1 << " - deals " << cardDamDef.first << " damage to enemy and give ";
-                    std::cout << cardDamDef.second << " shield to you." << '\n' << hand[i]->sayDescription(); //<< '\n';
+                    std::string description = hand[i]->sayDescription();
+                    InterfaceChooser::showCard(kChosenInterface, i + 1, cardDamDef.first, cardDamDef.second, &description);
                 }
             }
-            int command;
             bool ok = false;
             while (!ok) {
-                std::cin >> command;
-                if (command == 0) {
+                int answer = InterfaceChooser::read(kChosenInterface);
+                if (answer == 0) {
                     ok = true;
                     timeToExit = true;
                 }
-                for (int i = 0; i < hand.size(); ++i) {
-                    if (command == i + 1 && !used[command - 1]) {
-                        ok = true;
-                        used[command - 1] = true;
-                        hand[i]->use(liveEnemy, &playerGameObject);
+                if (answer > 0) {
+                    for (int i = 0; i < hand.size(); ++i) {
+                        if (answer == i + 1 && !used[answer - 1]) {
+                            ok = true;
+                            used[answer - 1] = true;
+                            hand[i]->use(liveEnemy, &playerGameObject);
+                        }
+                        //hand.erase(hand.begin() + i);
                     }
-                    //hand.erase(hand.begin() + i);
                 }
                 if (!ok) {
-                    std::cout << "Unknown Command, print 0 to Exit or number to use card" << '\n';
+                    InterfaceChooser::write(kChosenInterface, "unknown card", nullptr, nullptr);
                 } else {
                     --actionAmount;
                 }
             }
             if (liveEnemy->sayHp() <= 0) {
                 win = true;
-                std::cout << "You killed enemy. You get reward - ";
             }
         }
         if (!win) {
@@ -229,14 +173,18 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
     if (win) {
         playerGameObject.clearEffects();
         playerGameObject.takeDefence(-playerGameObject.sayDefence());
+        std::vector<int> tempValues(3);
+        std::vector<std::string*> tempStrings(1);
         {
             auto tempEnemy = dynamic_cast<WeakEnemy*>(enemy);
             if (tempEnemy != nullptr) {
+                tempValues[0] = 0;
                 Card* reward = tempEnemy->getReward();
                 std::pair<int, int> damDef = reward->realDamDef(&playerGameObject);
-                std::cout << "common card: " << '\n';
-                std::cout << reward->sayDescription();
-                std::cout << " Deals " << damDef.first << " damage and give " << damDef.second << " shield" << '\n';
+                std::string description = reward->sayDescription();
+                tempValues[1] = damDef.first;
+                tempValues[2] = damDef.second;
+                tempStrings[0] = &description;
                 playerGameObject.addReward(reward);
                 tempEnemy->setReward(nullptr);
             }
@@ -244,11 +192,13 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
         {
             auto tempEnemy = dynamic_cast<CommonEnemy*>(enemy);
             if (tempEnemy != nullptr) {
+                tempValues[0] = 1;
                 Card* reward = tempEnemy->getReward();
                 std::pair<int, int> damDef = reward->realDamDef(&playerGameObject);
-                std::cout << "strong card: " << '\n';
-                std::cout << reward->sayDescription();
-                std::cout << " Deals " << damDef.first << " damage and give " << damDef.second << " shield" << '\n';
+                std::string description = reward->sayDescription();
+                tempValues[1] = damDef.first;
+                tempValues[2] = damDef.second;
+                tempStrings[0] = &description;
                 playerGameObject.addReward(reward);
                 tempEnemy->setReward(nullptr);
             }
@@ -256,12 +206,13 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
         {
             auto tempEnemy = dynamic_cast<StrongEnemy*>(enemy);
             if (tempEnemy != nullptr) {
+                tempValues[0] = 2;
                 Artifact* reward = tempEnemy->getReward();
-                std::cout << "strange useless artifact" << '\n';
                 playerGameObject.addReward(reward);
                 tempEnemy->setReward(nullptr);
             }
         }
+        InterfaceChooser::write(kChosenInterface, "kill", &tempValues, &tempStrings);
     }
     delete enemy;
 }

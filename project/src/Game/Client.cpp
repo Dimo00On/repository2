@@ -4,6 +4,7 @@
 #include "../AbstractFactory/CommonFactory.h"
 #include "../AbstractFactory/WeakFactory.h"
 #include "../AbstractFactory/StrongFactory.h"
+#include "InterfaceChooser.h"
 
 extern bool timeToExit;
 
@@ -15,12 +16,10 @@ void Client::newGame() {
     while (!timeToExit) {
         game.changingPosition();
         if (!timeToExit) {
-            auto currentRoom = map.rooms[game.position.first][game.position.second];
+            auto currentRoom = map.showMap()[game.position.first][game.position.second];
             if (currentRoom->sayType() == RoomType::End) {
-                std::cout << "Congratulations! You win!" << '\n';
-                std::cout << "Print something to exit" << '\n';
-                std::string command;
-                std::cin >> command;
+                InterfaceChooser::write(kChosenInterface, "win game", nullptr, nullptr);
+                InterfaceChooser::read(kChosenInterface);
                 timeToExit = true;
             }
             if (currentRoom->sayType() == RoomType::Chill) {
@@ -29,7 +28,7 @@ void Client::newGame() {
                     game.startChill();
                     room->setEmpty(true);
                 } else {
-                    std::cout << "You have already been there" << '\n';
+                    InterfaceChooser::write(kChosenInterface, "empty", nullptr, nullptr);
                 }
             }
             if (currentRoom->sayType() == RoomType::Combat) {
@@ -51,7 +50,7 @@ void Client::newGame() {
                     game.startCombat(enemy);
                     room->setEmpty(true);
                 } else {
-                    std::cout << "You have already been there" << '\n';
+                    InterfaceChooser::write(kChosenInterface, "empty", nullptr, nullptr);
                 }
             }
         }

@@ -9,3 +9,5 @@ public:
     virtual std::pair<int, int> nextAttack(LiveObject& object) = 0;
     virtual std::pair<int, int> recalculate(LiveObject& object) = 0;
 };
+
+void createEnemies();

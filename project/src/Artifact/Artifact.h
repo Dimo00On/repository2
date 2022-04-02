@@ -14,3 +14,5 @@ public:
     Artifact(const Artifact& other) = default;
     virtual void doSomething();
 };
+
+void createArtifacts();

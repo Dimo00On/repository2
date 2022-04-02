@@ -11,3 +11,7 @@ bool EndRoom::sayIsEmpty() {
 void EndRoom::setEmpty(bool value) {}
 
 void EndRoom::setDifficulty(Difficulty value) {}
+
+Difficulty EndRoom::sayDifficulty() {
+    return Difficulty::None;
+}

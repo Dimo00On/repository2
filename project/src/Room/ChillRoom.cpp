@@ -13,3 +13,7 @@ void ChillRoom::setEmpty(bool value) {
 }
 
 void ChillRoom::setDifficulty(Difficulty value) {}
+
+Difficulty ChillRoom::sayDifficulty() {
+    return Difficulty::None;
+}

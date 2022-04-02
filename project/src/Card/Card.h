@@ -20,3 +20,5 @@ public:
     std::pair<int, int> realDamDef(LiveObject* user);
     virtual ~Card() = default;
 };
+
+void createCards();

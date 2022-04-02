@@ -4,4 +4,8 @@ add_library(Game SHARED
         GameProcess.cpp
         GameProcess.h
         PlayerGameObject.h
-        PlayerGameObject.cpp)
+        PlayerGameObject.cpp
+        ConsoleInterface.cpp
+        ConsoleInterface.h
+        InterfaceChooser.cpp
+        InterfaceChooser.h)

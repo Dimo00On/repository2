@@ -7,4 +7,5 @@ public:
     bool sayIsEmpty() override;
     void setEmpty(bool value) override;
     void setDifficulty(Difficulty value) override;
+    Difficulty sayDifficulty();
 };

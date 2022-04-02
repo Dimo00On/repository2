@@ -6,6 +6,8 @@
 #include <random>
 #pragma once
 
+class Client;
+
 class GameProcess{
 private:
     friend Client;
@@ -21,7 +23,6 @@ public:
 
 private:
     Room* changeRoom(std::pair<int, int> direction);
-    void showMap();
 };
 
 bool timeComp(const EffectType& first, const EffectType& second);

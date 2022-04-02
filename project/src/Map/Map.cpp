@@ -55,3 +55,7 @@ Map::~Map(){
         }
     }
 }
+
+const std::vector<std::vector<Room*>>& Map::showMap() {
+    return rooms;
+}

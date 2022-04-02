@@ -6,8 +6,5 @@
 
 bool timeToExit = false;
 
-void createArtifacts();
-void createEnemies();
-void createCards();
 void preCalc();
 void clear();
