@@ -1,1 +1,0 @@
-/usr/bin/c++  -g -O0 -fprofile-arcs -ftest-coverage --coverage -g   -fprofile-arcs -ftest-coverage CMakeFiles/00-aplusb-bin.dir/00-main.cpp.o  -o ../../bin/00-aplusb-bin   -L/home/dima/playground/task4/3rdparty/lib 

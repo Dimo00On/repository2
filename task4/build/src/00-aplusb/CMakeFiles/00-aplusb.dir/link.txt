@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g -O0 -fprofile-arcs -ftest-coverage --coverage -g  -shared -Wl,-soname,lib00-aplusb.so -o lib00-aplusb.so CMakeFiles/00-aplusb.dir/Foo.cpp.o   -L/home/dima/playground/task4/3rdparty/lib 
