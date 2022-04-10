@@ -16,7 +16,7 @@ public:
     Card() = default;
 
     virtual void use(LiveObject* target, LiveObject* user) = 0;
-    virtual std::string& sayDescription();
+    std::string& sayDescription();
     std::pair<int, int> realDamDef(LiveObject* user);
     virtual ~Card() = default;
 };

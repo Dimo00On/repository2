@@ -11,5 +11,5 @@ private:
 public:
     ~Map();
     void createNewMap(int size1, int size2);
-     const std::vector<std::vector<Room*>>& showMap();
+    const std::vector<std::vector<Room*>>& showMap();
 };

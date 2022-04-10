@@ -9,4 +9,5 @@ public:
     virtual bool sayIsEmpty() = 0;
     virtual void setEmpty(bool value) = 0;
     virtual void setDifficulty(Difficulty value) = 0;
+    virtual Difficulty sayDifficulty() = 0;
 };

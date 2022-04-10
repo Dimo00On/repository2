@@ -10,7 +10,7 @@ private:
 
 public:
     StrongEnemy();
-    StrongEnemy(std::vector<AttackType>& attackTypes, Artifact* reward);
+    StrongEnemy(std::vector<AttackType>& newAttackTypes, Artifact* newReward);
     StrongEnemy(const StrongEnemy& other) = default;
     ~StrongEnemy() override;
     void setReward(Artifact* newReward);

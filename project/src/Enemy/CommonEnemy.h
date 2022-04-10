@@ -10,7 +10,7 @@ private:
 
 public:
     CommonEnemy();
-    CommonEnemy(std::vector<AttackType>& attackTypes, StrongCard* reward);
+    CommonEnemy(std::vector<AttackType>& newAttackTypes, StrongCard* newReward);
     CommonEnemy(const CommonEnemy& other) = default;
     ~CommonEnemy() override;
     void setReward(StrongCard* newReward);

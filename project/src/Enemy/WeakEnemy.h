@@ -11,7 +11,7 @@ private:
 
 public:
     WeakEnemy();
-    WeakEnemy(std::vector<AttackType>& attackTypes, CommonCard* reward);
+    WeakEnemy(std::vector<AttackType>& newAttackTypes, CommonCard* newReward);
     WeakEnemy(const WeakEnemy& other) = default;
     ~WeakEnemy() override;
     void setReward(CommonCard* newReward);
