@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Foo.h
+
+/home/dima/playground/task4/src/00-aplusb/Foo.cpp
+Foo.h
+/home/dima/playground/task4/src/00-aplusb/Foo.h
+

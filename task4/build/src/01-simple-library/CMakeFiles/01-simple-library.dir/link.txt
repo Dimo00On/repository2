@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -O0 -fprofile-arcs -ftest-coverage --coverage -g  -shared -Wl,-soname,lib01-simple-library.so -o lib01-simple-library.so CMakeFiles/01-simple-library.dir/Functions.cpp.o   -L/home/dima/playground/task4/3rdparty/lib 

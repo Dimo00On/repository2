@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+59015033b2dffd41d7882d99a2f700bb _deps/curl-build/CMakeFiles/uninstall
+2636157c58459c5f479ecb11c469ca06 tests/00-aplusb/CMakeFiles/00-coverage-aplusb
+fc219571dd2973248c2ccdae4c9a6728 tests/01-simple-library/CMakeFiles/01-coverage-simple-library
+22f89f262d2754a7b4b1848a23204bde tests/02-tree/CMakeFiles/02-coverage-tree
+725a1034910f907e4ad5b425e6e7614d tests/03-weather/CMakeFiles/03-coverage-weather

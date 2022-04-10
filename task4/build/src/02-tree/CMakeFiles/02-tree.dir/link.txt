@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -O0 -fprofile-arcs -ftest-coverage --coverage -g  -shared -Wl,-soname,lib02-tree.so -o lib02-tree.so CMakeFiles/02-tree.dir/Tree.cpp.o   -L/home/dima/playground/task4/3rdparty/lib 

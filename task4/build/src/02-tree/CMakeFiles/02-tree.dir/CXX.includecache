@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Tree.h
+vector
+-
+string
+-
+filesystem
+-
+
+/home/dima/playground/task4/src/02-tree/Tree.cpp
+Tree.h
+/home/dima/playground/task4/src/02-tree/Tree.h
+filesystem
+-
+

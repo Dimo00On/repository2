@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/CMakeFiles/cpr_repo-populate"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/CMakeFiles/cpr_repo-populate.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/CMakeFiles/cpr_repo-populate-complete.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-install.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-download.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-update.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-patch.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-configure.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-build.rule"
+		},
+		{
+			"file" : "/home/dima/playground/task4/build/_deps/cpr_repo-subbuild/cpr_repo-populate-prefix/src/cpr_repo-populate-stamp/cpr_repo-populate-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"cpr_repo-populate"
+		],
+		"name" : "cpr_repo-populate"
+	}
+}

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -O0 -fprofile-arcs -ftest-coverage --coverage -g   -fprofile-arcs -ftest-coverage CMakeFiles/02-tree-bin.dir/02-main.cpp.o  -o ../../bin/02-tree-bin   -L/home/dima/playground/task4/3rdparty/lib  -Wl,-rpath,/home/dima/playground/task4/3rdparty/lib:/home/dima/playground/task4/build/src/02-tree ../src/02-tree/lib02-tree.so 

@@ -1,0 +1,14 @@
+# Target labels
+ zlib-populate
+# Source files and their labels
+/home/dima/playground/task4/build/_deps/zlib-subbuild/CMakeFiles/zlib-populate
+/home/dima/playground/task4/build/_deps/zlib-subbuild/CMakeFiles/zlib-populate.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/CMakeFiles/zlib-populate-complete.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-install.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-mkdir.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-download.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-update.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-patch.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-configure.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-build.rule
+/home/dima/playground/task4/build/_deps/zlib-subbuild/zlib-populate-prefix/src/zlib-populate-stamp/zlib-populate-test.rule

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Functions.h
+
+/home/dima/playground/task4/src/01-simple-library/Functions.cpp
+Functions.h
+/home/dima/playground/task4/src/01-simple-library/Functions.h
+stdexcept
+-
+
