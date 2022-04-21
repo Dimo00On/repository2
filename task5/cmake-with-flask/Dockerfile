@@ -13,4 +13,5 @@ RUN useradd tp2022user
 USER tp2022user
 
 #CMD ["./bin/C"]
-CMD ["python3", "app.py", "--port", "39031"]
+EXPOSE 8898
+CMD ["python3", "app.py", "--port", "8898"]
