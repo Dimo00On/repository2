@@ -8,10 +8,8 @@ RUN apt-get update
 RUN apt-get install -y gcc g++ cmake
 RUN pip install Flask
 RUN mkdir -p /opt/techprog/build && cd build && cmake .. && make
-
 RUN useradd tp2022user
 USER tp2022user
 
-#CMD ["./bin/C"]
 EXPOSE 8898
-CMD ["python3", "app.py", "--port", "8898"]
+CMD ["python3", "app.py", "--host", "0.0.0.0", "--port", "8898"]
