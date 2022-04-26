@@ -4,11 +4,11 @@ RUN mkdir -p /opt/techprog
 WORKDIR /opt/techprog
 COPY . /opt/techprog
 
-RUN apt-get update
-RUN apt-get install -y gcc g++ cmake
-RUN pip install Flask
-RUN mkdir -p /opt/techprog/build && cd build && cmake .. && make
-RUN useradd tp2022user
+RUN apt-get update && \
+    apt-get install -y gcc g++ cmake && \
+    pip install Flask && \
+    mkdir -p /opt/techprog/build && cd build && cmake .. && make && \
+    useradd tp2022user
 USER tp2022user
 
 EXPOSE 8898
