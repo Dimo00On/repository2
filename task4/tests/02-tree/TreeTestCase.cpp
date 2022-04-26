@@ -53,13 +53,15 @@ TEST(Test02, test1b) {
     } catch(...) {}
 }
 
-TEST(Test02, test1c) {
+TEST(Test02, test2) {
+    createFiles();
     FileNode notEmpty = GetTree(uniquePath, false);
     FileNode empty = GetTree(uniquePath, true);
     ASSERT_EQ(notEmpty == empty, false);
 }
 
-TEST(Test02, test1d) {
+TEST(Test02, test3) {
+    createFiles();
     FileNode notEmpty = GetTree(uniquePath, false);
     FilterEmptyNodes(notEmpty, uniquePath);
 }
