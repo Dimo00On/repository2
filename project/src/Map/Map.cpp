@@ -13,6 +13,7 @@ void Map::createNewMap(int size1, int size2) {
                 auto chill = dynamic_cast<ChillRoom*>(factory.create(Difficulty::None));
                 chill->setEmpty(true);
                 rooms[i][j] = chill;
+                continue;
             }
             if (i == size1 - 1) {
                 EndRoomFactory factory;

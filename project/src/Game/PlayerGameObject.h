@@ -23,6 +23,5 @@ public:
     void setCardPerTurn(int value);
     int sayActionAmount();
     int sayCardPerTurnAmount();
-    void addReward(Card* newCard);
-    void addReward(Artifact* newArtifact);
+    void addReward(Reward* newReward);
 };

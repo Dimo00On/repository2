@@ -14,7 +14,7 @@ protected:
 public:
     virtual ~AbstractFactory();
     virtual AbstractEnemy* createEnemy(std::vector<AttackType>& attacks) = 0;
-    virtual Card* createCard(int damage, int defence, std::string* description,
+    virtual Card* createCard(int damage, int defence, const std::string* description,
                             std::vector<EffectType>& buffs, std::vector<EffectType>& debuffs) = 0;
     virtual AbstractEnemy* getEnemy(int index) = 0;
     virtual Card* getCard(int index) = 0;

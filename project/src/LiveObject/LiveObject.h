@@ -21,6 +21,7 @@ public:
     int sayHp();
     const std::vector<EffectType>& sayEffects();
     void takeEffects(const std::vector<EffectType>& effects);
+    const std::vector<EffectType>& getEffects();
     void effectsTimeDecrease();
     void clearEffects();
 };

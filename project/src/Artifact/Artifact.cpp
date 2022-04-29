@@ -1,17 +1,33 @@
 #include "Artifact.h"
 #include "ArtifactFactory.h"
 
-void Artifact::doSomething() {
+void Artifact::setDescription(const std::string* newDescription) {
+    description = newDescription;
 }
 
-Artifact::Artifact(std::vector<bool>& params) {
+Artifact::Artifact(std::vector<bool>& params) : Reward(RewardType::Artifact) {
     isCombatType = params[static_cast<int>(ArtifactParams::Combat)];
-    isPassive = params[static_cast<int>(ArtifactParams::Passive)];
-    isActive = params[static_cast<int>(ArtifactParams::Active)];
+    isPassiveType = params[static_cast<int>(ArtifactParams::Passive)];
+    isActiveType = params[static_cast<int>(ArtifactParams::Active)];
 }
 
 void createArtifacts() {
-    std::vector<bool> forArtifact(3, false);
     auto factory = ArtifactFactory::getFactory();
-    factory->create(forArtifact);
+    factory->createDamageArtifact();
+}
+
+bool Artifact::isCombat() {
+    return isCombatType;
+}
+
+bool Artifact::isPassive() {
+    return isPassiveType;
+}
+
+bool Artifact::isActive() {
+    return isActiveType;
+}
+
+const std::string* Artifact::sayDescription() {
+    return description;
 }

@@ -18,11 +18,11 @@ private:
     int time;
     bool isGood;
     bool isOnArea;
-    std::string* description;
+    const std::string* description;
 
 public:
     EffectType(const std::vector<float>& scaling, const std::vector<int>& power,
-               const std::vector<bool>& params, std::string* newDescription);
+               const std::vector<bool>& params, const std::string* newDescription);
     EffectType() = default;
     EffectType(const EffectType& other) = default;
     void decreaseTime();
@@ -33,6 +33,7 @@ public:
     int sayDefencePower() const;
     int sayActionAmount() const;
     int sayCardPerTurnAmount() const;
+    const std::string* sayDescription() const;
 };
 
 bool timeComp(const EffectType& first, const EffectType& second);

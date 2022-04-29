@@ -48,3 +48,14 @@ void createEnemies() {
     strongFactory->createEnemy(attacks);
     attacks.clear();
 }
+
+AbstractEnemy::AbstractEnemy(std::vector<AttackType>& newAttackTypes, Reward* newReward) :
+    attackTypes(newAttackTypes), reward(newReward) {};
+
+void AbstractEnemy::setReward(Reward* newReward) {
+    reward = newReward;
+}
+
+Reward* AbstractEnemy::getReward() {
+    return reward;
+}

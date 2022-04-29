@@ -12,7 +12,7 @@ AbstractEnemy* WeakFactory::createEnemy(std::vector<AttackType>& attacks) {
     return enemy;
 }
 
-Card* WeakFactory::createCard(int damage, int defence, std::string* description,
+Card* WeakFactory::createCard(int damage, int defence, const std::string* description,
                               std::vector<EffectType>& buffs, std::vector<EffectType>& debuffs) {
     auto card = new WeakCard(defence, buffs, damage, debuffs, description);
     allCards->push_back(card);

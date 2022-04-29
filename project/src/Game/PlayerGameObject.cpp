@@ -34,19 +34,21 @@ int PlayerGameObject::sayCardPerTurnAmount() {
     return cardPerTurnAmount;
 }
 
-void PlayerGameObject::addReward(Card* newCard) {
-    cardDeque.push_back(newCard);
-}
-
-void PlayerGameObject::addReward(Artifact *newArtifact) {
-    artifacts.push_back(newArtifact);
+void PlayerGameObject::addReward(Reward* newReward) {
+    RewardType type = newReward->sayType();
+    if (type == RewardType::Card) {
+        cardDeque.push_back(dynamic_cast<Card*>(newReward));
+    }
+    if (type == RewardType::Artifact) {
+        artifacts.push_back(dynamic_cast<Artifact*>(newReward));
+    }
 }
 
 PlayerGameObject::~PlayerGameObject() {
     for (auto card : cardDeque) {
         delete card;
     }
-    for (auto artifact : artifacts) {
+    /*for (auto artifact : artifacts) {
         delete artifact;
-    }
+    }*/
 }

@@ -2,7 +2,7 @@
 #include "ConsoleInterface.h"
 
 void InterfaceChooser::write(Interface type, const std::string& answer, std::vector<int>* values,
-                  std::vector<std::string*>* strings) {
+                  std::vector<const std::string*>* strings) {
     if (type == Interface::Console) {
         ConsoleInterface::write(answer, values, strings);
     }
@@ -35,18 +35,20 @@ void InterfaceChooser::showPaths(Interface type, Map& map, std::pair<int, int>& 
         //::showPaths(map, position);
     }
 }
-void InterfaceChooser::showCombatStatus(Interface type, std::vector<int>& values) {
+void InterfaceChooser::showCombatStatus(Interface type, std::vector<int>& values,
+                                        const std::vector<EffectType>& enemyEffects,
+                                        const std::vector<EffectType>& playerEffects) {
     if (type == Interface::Console) {
-        ConsoleInterface::showCombatStatus(values);
+        ConsoleInterface::showCombatStatus(values, enemyEffects, playerEffects);
     }
     if (type == Interface::Graphic) {
-        //::showCombatStatus(values);
+        //::showCombatStatus(values, enemyEffects, playerEffects);
     }
     if (type == Interface::Network) {
-        //::showCombatStatus(values);
+        //::showCombatStatus(values, enemyEffects, playerEffects);
     }
 }
-void InterfaceChooser::showCard(Interface type, int number, int damage, int defence, std::string* description) {
+void InterfaceChooser::showCard(Interface type, int number, int damage, int defence, const std::string* description) {
     if (type == Interface::Console) {
         ConsoleInterface::showCard(number, damage, defence, description);
     }
@@ -68,4 +70,16 @@ int InterfaceChooser::read(Interface type) {
         //::read();
     }
     return 0;
+}
+
+void InterfaceChooser::showArtifact(Interface type, int number, const std::string* description) {
+    if (type == Interface::Console) {
+        ConsoleInterface::showArtifact(number, description);
+    }
+    if (type == Interface::Graphic) {
+        //::showArtifact(number, description);
+    }
+    if (type == Interface::Network) {
+        //::showArtifact(number, description);
+    }
 }

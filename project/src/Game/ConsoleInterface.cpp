@@ -1,8 +1,9 @@
 #include "ConsoleInterface.h"
 #include "../Const/Constants.h"
+#include "../Types/EffectType.h"
 
 void ConsoleInterface::write(const std::string& answer, std::vector<int>* values,
-                             std::vector<std::string*>* strings) {
+                             std::vector<const std::string*>* strings) {
     if (answer == "\n") {
         std::cout << '\n';
     }
@@ -28,7 +29,7 @@ void ConsoleInterface::write(const std::string& answer, std::vector<int>* values
         std::cout << "Unknown command" << '\n';
     }
     if (answer == "unknown card") {
-        std::cout << "Unknown Command, print 0 to Exit or number to use card" << '\n';
+        std::cout << "Unknown Command, print 0 to Exit or number to use card or artifact" << '\n';
     }
     if (answer == "dead") {
         std::cout << "You died" << '\n';
@@ -36,18 +37,18 @@ void ConsoleInterface::write(const std::string& answer, std::vector<int>* values
     }
     if (answer == "kill") {
         std::cout << "You killed enemy. You get a reward - ";
-        if ((*values)[0] == 0) {
-            std::cout << "common card: " << '\n';
-            std::cout << *(*strings)[0];
-            std::cout << " Deals " << (*values)[1] << " damage and give " << (*values)[2] << " shield" << '\n';
-        }
         if ((*values)[0] == 1) {
-            std::cout << "strong card: " << '\n';
-            std::cout << *(*strings)[0];
-            std::cout << " Deals " << (*values)[1] << " damage and give " << (*values)[2] << " shield" << '\n';
+            std::cout << "common card: " << '\n';
+            std::cout << *((*strings)[0]);
+            std::cout << "Deals " << (*values)[1] << " damage and give " << (*values)[2] << " shield" << '\n';
         }
         if ((*values)[0] == 2) {
-            std::cout << "strange useless artifact" << '\n';
+            std::cout << "strong card: " << '\n';
+            std::cout << *((*strings)[0]);
+            std::cout << "Deals " << (*values)[1] << " damage and give " << (*values)[2] << " shield" << '\n';
+        }
+        if ((*values)[0] == 3) {
+            std::cout << "strange useless artifact:" << '\n' << *((*strings)[0]) << '\n';
         }
     }
 
@@ -117,21 +118,35 @@ void ConsoleInterface::showPaths(Map &map, std::pair<int, int> &position) {
     }
 }
 
-void ConsoleInterface::showCombatStatus(std::vector<int> &values) {
+void ConsoleInterface::showCombatStatus(std::vector<int> &values,
+                                        const std::vector<EffectType>& enemyEffects,
+                                        const std::vector<EffectType>& playerEffects) {
     std::cout << '\n' << "Enemy want to deal " << values[0] << " damage to you ";
     std::cout << "and want to gain " << values[1] << " shield" << '\n';
     std::cout << "His hp: " << values[2] << '\n';
     std::cout << "His defence: " << values[3] << '\n';
+    if (!enemyEffects.empty()) {
+        std::cout << "His effects:\n";
+        for (auto& effect : enemyEffects) {
+            std::cout << *effect.sayDescription() << '\n';
+        }
+    }
     std::cout << "Your Actions left: " << values[4] << '\n';
     std::cout << "Your hp left: " << values[5] << '\n';
     std::cout << "Your defence: " << values[6] << '\n';
+    if (!playerEffects.empty()) {
+        std::cout << "Your effects:\n";
+        for (auto& effect : playerEffects) {
+            std::cout << *effect.sayDescription() << '\n';
+        }
+    }
     std::cout << "Choose card to use:" << '\n';
     std::cout << 0 << " - Exit" << '\n';
 }
 
-void ConsoleInterface::showCard(int number, int damage, int defence, std::string* description) {
+void ConsoleInterface::showCard(int number, int damage, int defence, const std::string* description) {
     std::cout << number << " - deals " << damage << " damage to enemy and give ";
-    std::cout << defence << " shield to you." << '\n' << *description; //<< '\n';
+    std::cout << defence << " shield to you. " << *description << '\n';
 }
 
 int ConsoleInterface::readNumber() {
@@ -160,4 +175,8 @@ int ConsoleInterface::readNumber() {
         }
     }
     return answer;
+}
+
+void ConsoleInterface::showArtifact(int number, const std::string* description) {
+    std::cout << number << " - use artifact: " << *description << '\n';
 }

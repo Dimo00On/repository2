@@ -51,3 +51,7 @@ void LiveObject::effectsTimeDecrease() {
 void LiveObject::clearEffects() {
     currentEffects.clear();
 }
+
+const std::vector<EffectType>& LiveObject::getEffects() {
+    return currentEffects;
+}

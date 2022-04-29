@@ -4,9 +4,7 @@
 WeakEnemy::WeakEnemy() : LiveObject(kWeakHp) {}
 
 WeakEnemy::WeakEnemy(std::vector<AttackType>& newAttackTypes, CommonCard* newReward) :
-LiveObject(kWeakHp), attackTypes(newAttackTypes), reward(newReward) {
-
-}
+LiveObject(kWeakHp), AbstractEnemy(newAttackTypes, newReward) {}
 
 void WeakEnemy::attack(LiveObject& object) {
     attackTypes[chosenType].makeAttack(object, *this);
@@ -23,12 +21,4 @@ WeakEnemy::~WeakEnemy() {
 
 std::pair<int, int> WeakEnemy::recalculate(LiveObject& object) {
     return attackTypes[chosenType].nextAttack(object, *this);
-}
-
-void WeakEnemy::setReward(CommonCard* newReward) {
-    reward = newReward;
-}
-
-Card *WeakEnemy::getReward() {
-    return reward;
 }

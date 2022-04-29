@@ -4,9 +4,9 @@
 #include "../AbstractFactory/StrongFactory.h"
 
 Card::Card(int newShieldAmount, std::vector<EffectType>& newBuffs, int newDamage,
-                   std::vector<EffectType>& newDebuffs, std::string *newDescription) :
-        shieldAmount(newShieldAmount), buffs(newBuffs), damage(newDamage), debuffs(newDebuffs),
-        description(newDescription) {}
+                   std::vector<EffectType>& newDebuffs, const std::string* newDescription) :
+        Reward(RewardType::Card), shieldAmount(newShieldAmount), buffs(newBuffs),
+        damage(newDamage), debuffs(newDebuffs), description(newDescription) {}
 
 std::pair<int, int> Card::realDamDef(LiveObject* user) {
     float realDamage = damage;
@@ -23,8 +23,8 @@ std::pair<int, int> Card::realDamDef(LiveObject* user) {
     return std::make_pair<int, int>(realDamage, realDefence);
 }
 
-std::string& Card::sayDescription() {
-    return *description;
+const std::string* Card::sayDescription() {
+    return description;
 }
 
 void createCards() {
@@ -32,14 +32,13 @@ void createCards() {
     auto commonFactory = CommonFactory::getFactory();
     auto strongFactory = StrongFactory::getFactory();
     std::vector<EffectType> empty;
-    auto emptyDescription = new std::string;
-    weakFactory->createCard(6, 0, emptyDescription, empty, empty);
-    weakFactory->createCard(0, 5, emptyDescription, empty, empty);
-    weakFactory->createCard(3, 2, emptyDescription, empty, empty);
-    commonFactory->createCard(12, 0, emptyDescription, empty, empty);
-    commonFactory->createCard(0, 10, emptyDescription, empty, empty);
-    commonFactory->createCard(6, 5, emptyDescription, empty, empty);
-    strongFactory->createCard(25, 0, emptyDescription, empty, empty);
-    strongFactory->createCard(0, 20, emptyDescription, empty, empty);
-    strongFactory->createCard(15, 10, emptyDescription, empty, empty);
+    weakFactory->createCard(6, 0, &kEmptyDescription, empty, empty);
+    weakFactory->createCard(0, 5, &kEmptyDescription, empty, empty);
+    weakFactory->createCard(3, 2, &kEmptyDescription, empty, empty);
+    commonFactory->createCard(12, 0, &kEmptyDescription, empty, empty);
+    commonFactory->createCard(0, 10, &kEmptyDescription, empty, empty);
+    commonFactory->createCard(6, 5, &kEmptyDescription, empty, empty);
+    strongFactory->createCard(25, 0, &kEmptyDescription, empty, empty);
+    strongFactory->createCard(0, 20, &kEmptyDescription, empty, empty);
+    strongFactory->createCard(15, 10, &kEmptyDescription, empty, empty);
 }

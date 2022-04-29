@@ -1,24 +1,27 @@
 #include "../Types/EffectType.h"
 #include "../LiveObject/LiveObject.h"
+#include "../Reward/Reward.h"
 #pragma once
 
-class Card{
+enum class CardType{None = -1, Weak = 0, Common, Strong};
+class Card : public Reward {
 protected:
     int shieldAmount;
     std::vector<EffectType> buffs;
     int damage;
     std::vector<EffectType> debuffs;
-    std::string* description;
+    const std::string* description;
 
 public:
     Card(int newShieldAmount, std::vector<EffectType>& newBuffs, int newDamage,
-         std::vector<EffectType>& newDebuffs, std::string *newDescription);
-    Card() = default;
+         std::vector<EffectType>& newDebuffs, const std::string* newDescription);
+    Card() : Reward(RewardType::Card) {};
 
     virtual void use(LiveObject* target, LiveObject* user) = 0;
-    std::string& sayDescription();
+    const std::string* sayDescription() override;
     std::pair<int, int> realDamDef(LiveObject* user);
     virtual ~Card() = default;
+    virtual CardType sayCardType() {return CardType::None;};
 };
 
 void createCards();

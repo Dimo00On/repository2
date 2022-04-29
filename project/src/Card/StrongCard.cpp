@@ -9,5 +9,9 @@ void StrongCard::use(LiveObject* target, LiveObject* user) {
 }
 
 StrongCard::StrongCard(int newShieldAmount, std::vector<EffectType>& newBuffs, int newDamage,
-           std::vector<EffectType>& newDebuffs, std::string* newDescription) :
+           std::vector<EffectType>& newDebuffs, const std::string* newDescription) :
            Card(newShieldAmount, newBuffs, newDamage, newDebuffs, newDescription) {}
+
+CardType StrongCard::sayCardType() {
+    return CardType::Strong;
+}

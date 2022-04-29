@@ -9,5 +9,9 @@ void WeakCard::use(LiveObject* target, LiveObject* user) {
 }
 
 WeakCard::WeakCard(int newShieldAmount, std::vector<EffectType>& newBuffs, int newDamage,
-                       std::vector<EffectType>& newDebuffs, std::string* newDescription) :
+                       std::vector<EffectType>& newDebuffs, const std::string* newDescription) :
         Card(newShieldAmount, newBuffs, newDamage, newDebuffs, newDescription) {}
+
+CardType WeakCard::sayCardType() {
+    return CardType::Weak;
+}

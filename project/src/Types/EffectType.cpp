@@ -5,7 +5,7 @@ bool timeComp(const EffectType& first, const EffectType& second) {
 }
 
 EffectType::EffectType(const std::vector<float>& scaling, const std::vector<int>& power,
-                       const std::vector<bool>& params, std::string* newDescription) {
+                       const std::vector<bool>& params, const std::string* newDescription) {
     defenceInfluenceScale = scaling[static_cast<int>(OrderScale::Defence)];
     attackInfluenceScale = scaling[static_cast<int>(OrderScale::Damage)];
     hpInfluenceScale = scaling[static_cast<int>(OrderScale::Hp)];
@@ -50,4 +50,8 @@ int EffectType::sayActionAmount() const {
 
 int EffectType::sayCardPerTurnAmount() const {
     return cardAmountInfluence;
+}
+
+const std::string* EffectType::sayDescription() const {
+    return description;
 }

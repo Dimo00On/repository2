@@ -3,8 +3,8 @@
 
 CommonEnemy::CommonEnemy() : LiveObject(kCommonHp) {}
 
-CommonEnemy::CommonEnemy(std::vector<AttackType>& newAttackTypes, StrongCard* newReward) :
-        LiveObject(kCommonHp), attackTypes(newAttackTypes), reward(newReward) {}
+CommonEnemy::CommonEnemy(std::vector<AttackType>& newAttackTypes, Reward* newReward) :
+        LiveObject(kCommonHp), AbstractEnemy(newAttackTypes, newReward) {}
 
 void CommonEnemy::attack(LiveObject& object) {
     attackTypes[chosenType].makeAttack(object, *this);
@@ -21,12 +21,4 @@ CommonEnemy::~CommonEnemy() {
 
 std::pair<int, int> CommonEnemy::recalculate(LiveObject& object) {
     return attackTypes[chosenType].nextAttack(object, *this);
-}
-
-void CommonEnemy::setReward(StrongCard* newReward) {
-    reward = newReward;
-}
-
-Card *CommonEnemy::getReward() {
-    return reward;
 }

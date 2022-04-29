@@ -3,8 +3,8 @@
 
 StrongEnemy::StrongEnemy() : LiveObject(kStrongHp) {}
 
-StrongEnemy::StrongEnemy(std::vector<AttackType>& newAttackTypes, Artifact* newReward) :
-        LiveObject(kStrongHp), attackTypes(newAttackTypes), reward(newReward) {}
+StrongEnemy::StrongEnemy(std::vector<AttackType>& newAttackTypes, Reward* newReward) :
+        LiveObject(kStrongHp), AbstractEnemy(newAttackTypes, newReward) {}
 
 void StrongEnemy::attack(LiveObject& object) {
     attackTypes[chosenType].makeAttack(object, *this);
@@ -21,12 +21,4 @@ StrongEnemy::~StrongEnemy() {
 
 std::pair<int, int> StrongEnemy::recalculate(LiveObject& object) {
     return attackTypes[chosenType].nextAttack(object, *this);
-}
-
-void StrongEnemy::setReward(Artifact* newReward) {
-    reward = newReward;
-}
-
-Artifact* StrongEnemy::getReward() {
-    return reward;
 }

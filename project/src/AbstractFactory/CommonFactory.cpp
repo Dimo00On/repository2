@@ -12,7 +12,7 @@ AbstractEnemy* CommonFactory::createEnemy(std::vector<AttackType>& attacks) {
     return enemy;
 }
 
-Card* CommonFactory::createCard(int damage, int defence, std::string* description,
+Card* CommonFactory::createCard(int damage, int defence, const std::string* description,
                               std::vector<EffectType>& buffs, std::vector<EffectType>& debuffs) {
     auto card = new CommonCard(defence, buffs, damage, debuffs, description);
     allCards->push_back(card);
