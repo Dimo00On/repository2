@@ -3,6 +3,7 @@
 
 class EndRoom : public Room {
 public:
+    ~EndRoom() override = default;
     RoomType sayType() override;
     bool sayIsEmpty() override;
     void setEmpty(bool value) override;

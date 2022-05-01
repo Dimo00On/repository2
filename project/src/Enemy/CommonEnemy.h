@@ -11,4 +11,5 @@ public:
     void attack(LiveObject& object) override;
     std::pair<int, int> nextAttack(LiveObject& object) override;
     std::pair<int, int> recalculate(LiveObject& object) override;
+    AbstractEnemy* clone() override;
 };

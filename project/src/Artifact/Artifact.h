@@ -5,7 +5,6 @@
 #pragma once
 
 enum class ArtifactParams {Combat = 0, Passive, Active};
-enum class ArtifactType{None = -1, DamageArtifact = 0};
 class Artifact : public Reward {
 protected:
     bool isCombatType;
@@ -20,11 +19,13 @@ public:
     Artifact(const Artifact& other) = default;
     virtual void doSomething(LiveObject* user, LiveObject* target) {};
     void setDescription(const std::string* newDescription);
-    virtual ArtifactType sayArtifactType() {return ArtifactType::None;};
     bool isCombat();
     bool isPassive();
     bool isActive();
     const std::string* sayDescription() override;
+    Reward* clone() override;
+    Artifact* toArtifact() final {return this;};
+    Card* toCard() final {return nullptr;};
 };
 
 void createArtifacts();

@@ -15,3 +15,7 @@ StrongCard::StrongCard(int newShieldAmount, std::vector<EffectType>& newBuffs, i
 CardType StrongCard::sayCardType() {
     return CardType::Strong;
 }
+
+Reward* StrongCard::clone() {
+    return new StrongCard(*this);
+}

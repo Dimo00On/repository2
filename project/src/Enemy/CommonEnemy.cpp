@@ -22,3 +22,7 @@ CommonEnemy::~CommonEnemy() {
 std::pair<int, int> CommonEnemy::recalculate(LiveObject& object) {
     return attackTypes[chosenType].nextAttack(object, *this);
 }
+
+AbstractEnemy* CommonEnemy::clone() {
+    return new CommonEnemy(*this);
+}

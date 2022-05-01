@@ -15,7 +15,7 @@ public:
     static ArtifactFactory* getFactory();
     Artifact* create(std::vector<bool>& params);
     Artifact* createDamageArtifact();
-    Artifact* getArtifact(int index);
+    Reward* getArtifact(int index);
     void clear();
     int artifactAmount();
 };

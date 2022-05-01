@@ -10,7 +10,7 @@ void Map::createNewMap(int size1, int size2) {
         for (int j = 0; j < size2; ++j) {
             if (i == 0 && j == 0) {
                 ChillRoomFactory factory;
-                auto chill = dynamic_cast<ChillRoom*>(factory.create(Difficulty::None));
+                auto chill = factory.create(Difficulty::None);
                 chill->setEmpty(true);
                 rooms[i][j] = chill;
                 continue;

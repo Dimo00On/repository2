@@ -6,6 +6,7 @@ private:
     bool isEmpty = false;
 
 public:
+    ~ChillRoom() override = default;
     RoomType sayType() override;
     bool sayIsEmpty() override;
     void setEmpty(bool value) override;

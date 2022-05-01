@@ -22,3 +22,7 @@ StrongEnemy::~StrongEnemy() {
 std::pair<int, int> StrongEnemy::recalculate(LiveObject& object) {
     return attackTypes[chosenType].nextAttack(object, *this);
 }
+
+AbstractEnemy* StrongEnemy::clone() {
+    return new StrongEnemy(*this);
+}

@@ -10,5 +10,5 @@ public:
     DamageArtifact(const DamageArtifact& other) = default;
     void setMultiplier(float value);
     void doSomething(LiveObject* user, LiveObject* target) override;
-    ArtifactType sayArtifactType() override {return ArtifactType::DamageArtifact;};
+    Reward* clone() override;
 };

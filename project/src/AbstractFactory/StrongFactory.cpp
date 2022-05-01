@@ -6,7 +6,7 @@ StrongFactory* StrongFactory::factory = nullptr;
 AbstractEnemy* StrongFactory::createEnemy(std::vector<AttackType>& attacks) {
     auto artifactFactory = ArtifactFactory::getFactory();
     int chosenReward = rand() % artifactFactory->artifactAmount();
-    auto reward = dynamic_cast<Artifact*>(artifactFactory->getArtifact(chosenReward));
+    auto reward = artifactFactory->getArtifact(chosenReward);
     auto enemy = new StrongEnemy(attacks, reward);
     allEnemies->push_back(enemy);
     return enemy;
@@ -19,15 +19,15 @@ Card* StrongFactory::createCard(int damage, int defence, const std::string* desc
     return card;
 }
 
-Card* StrongFactory::getCard(int index) {
-    return new StrongCard(*dynamic_cast<StrongCard*>((*allCards)[index]));
+Reward* StrongFactory::getCard(int index) {
+    return ((*allCards)[index])->clone();
 }
 
 AbstractEnemy* StrongFactory::getEnemy(int index) {
-    auto enemy = new StrongEnemy(*dynamic_cast<StrongEnemy*>((*allEnemies)[index]));
+    auto enemy = ((*allEnemies)[index])->clone();
     auto artifactFactory = ArtifactFactory::getFactory();
     int chosenReward = rand() % artifactFactory->artifactAmount();
-    auto reward = dynamic_cast<Artifact*>(artifactFactory->getArtifact(chosenReward));
+    auto reward = artifactFactory->getArtifact(chosenReward);
     enemy->setReward(reward);
     return enemy;
 }

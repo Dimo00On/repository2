@@ -19,6 +19,7 @@ public:
     virtual std::pair<int, int> recalculate(LiveObject& object) = 0;
     Reward* getReward();
     void setReward(Reward* newReward);
+    virtual AbstractEnemy* clone() = 0;
 };
 
 void createEnemies();

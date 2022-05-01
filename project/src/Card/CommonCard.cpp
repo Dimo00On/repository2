@@ -15,3 +15,7 @@ CommonCard::CommonCard(int newShieldAmount, std::vector<EffectType>& newBuffs, i
 CardType CommonCard::sayCardType() {
     return CardType::Common;
 }
+
+Reward* CommonCard::clone() {
+    return new CommonCard(*this);
+}

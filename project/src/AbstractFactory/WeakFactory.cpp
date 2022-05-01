@@ -6,7 +6,7 @@ WeakFactory* WeakFactory::factory = nullptr;
 AbstractEnemy* WeakFactory::createEnemy(std::vector<AttackType>& attacks) {
     auto commonFactory = CommonFactory::getFactory();
     int chosenReward = rand() % commonFactory->cardAmount();
-    auto reward = dynamic_cast<CommonCard*>(commonFactory->getCard(chosenReward));
+    auto reward = commonFactory->getCard(chosenReward);
     auto enemy = new WeakEnemy(attacks, reward);
     allEnemies->push_back(enemy);
     return enemy;
@@ -19,15 +19,15 @@ Card* WeakFactory::createCard(int damage, int defence, const std::string* descri
     return card;
 }
 
-Card* WeakFactory::getCard(int index) {
+Reward* WeakFactory::getCard(int index) {
     return new WeakCard(*dynamic_cast<WeakCard*>((*allCards)[index]));
 }
 
 AbstractEnemy* WeakFactory::getEnemy(int index) {
-    auto enemy = new WeakEnemy(*dynamic_cast<WeakEnemy*>((*allEnemies)[index]));
+    auto enemy = ((*allEnemies)[index])->clone();
     auto commonFactory = CommonFactory::getFactory();
     int chosenReward = rand() % commonFactory->cardAmount();
-    auto reward = dynamic_cast<CommonCard*>(commonFactory->getCard(chosenReward));
+    auto reward = commonFactory->getCard(chosenReward);
     enemy->setReward(reward);
     return enemy;
 }

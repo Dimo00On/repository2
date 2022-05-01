@@ -2,11 +2,11 @@
 #include "../AbstractFactory/WeakFactory.h"
 #include "../AbstractFactory/CommonFactory.h"
 #include "../AbstractFactory/StrongFactory.h"
+#include "../AbstractFactory/Creator.h"
 
 void createEnemies() {
-    auto weakFactory = WeakFactory::getFactory();
-    auto commonFactory = CommonFactory::getFactory();
-    auto strongFactory = StrongFactory::getFactory();
+    Creator creator;
+    creator.setFactory(WeakFactory::getFactory());
     std::vector<EffectType> empty;
     std::vector<AttackType> attacks;
     {
@@ -19,8 +19,9 @@ void createEnemies() {
         attacks.push_back(attack2);
         attacks.push_back(attack3);
     }
-    weakFactory->createEnemy(attacks);
+    creator.createEnemy(attacks);
     attacks.clear();
+    creator.setFactory(CommonFactory::getFactory());
     {
         AttackType attack1(15, 5, empty, empty);
         AttackType attack2(8, 12, empty, empty);
@@ -31,8 +32,9 @@ void createEnemies() {
         attacks.push_back(attack2);
         attacks.push_back(attack3);
     }
-    commonFactory->createEnemy(attacks);
+    creator.createEnemy(attacks);
     attacks.clear();
+    creator.setFactory(StrongFactory::getFactory());
     {
         AttackType attack1(20, 10, empty, empty);
         AttackType attack2(10, 20, empty, empty);
@@ -45,7 +47,7 @@ void createEnemies() {
         attacks.push_back(attack3);
         attacks.push_back(attack4);
     }
-    strongFactory->createEnemy(attacks);
+    creator.createEnemy(attacks);
     attacks.clear();
 }
 

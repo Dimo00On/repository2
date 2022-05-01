@@ -9,4 +9,5 @@ public:
              std::vector<EffectType>& newDebuffs, const std::string* newDescription);
     void use(LiveObject* target, LiveObject* user) override;
     CardType sayCardType() override;
+    Reward* clone() override;
 };

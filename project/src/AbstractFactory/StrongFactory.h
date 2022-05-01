@@ -17,5 +17,5 @@ public:
     Card* createCard(int damage, int defence, const std::string* description,
                      std::vector<EffectType>& buffs, std::vector<EffectType>& debuffs) override;
     AbstractEnemy* getEnemy(int index) override;
-    Card* getCard(int index) override;
+    Reward* getCard(int index) override;
 };

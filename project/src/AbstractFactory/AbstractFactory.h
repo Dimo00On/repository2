@@ -3,7 +3,6 @@
 #include "../Const/Constants.h"
 #pragma once
 
-class EnemyData;
 class AbstractFactory {
 protected:
     std::vector<AbstractEnemy*>* allEnemies = nullptr;
@@ -17,7 +16,7 @@ public:
     virtual Card* createCard(int damage, int defence, const std::string* description,
                             std::vector<EffectType>& buffs, std::vector<EffectType>& debuffs) = 0;
     virtual AbstractEnemy* getEnemy(int index) = 0;
-    virtual Card* getCard(int index) = 0;
+    virtual Reward* getCard(int index) = 0;
     int cardAmount();
     int enemyAmount();
     void clearCard();

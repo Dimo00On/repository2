@@ -15,3 +15,7 @@ WeakCard::WeakCard(int newShieldAmount, std::vector<EffectType>& newBuffs, int n
 CardType WeakCard::sayCardType() {
     return CardType::Weak;
 }
+
+Reward* WeakCard::clone() {
+    return new WeakCard(*this);
+}

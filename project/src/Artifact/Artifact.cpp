@@ -31,3 +31,7 @@ bool Artifact::isActive() {
 const std::string* Artifact::sayDescription() {
     return description;
 }
+
+Reward* Artifact::clone() {
+    return new Artifact(*this);
+}

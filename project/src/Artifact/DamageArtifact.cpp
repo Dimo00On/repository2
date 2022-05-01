@@ -16,3 +16,7 @@ void DamageArtifact::doSomething(LiveObject *user, LiveObject *target) {
     EffectType effect(scaling, power, params, description);
     user->takeEffects({effect});
 }
+
+Reward* DamageArtifact::clone() {
+    return new DamageArtifact(*this);
+}

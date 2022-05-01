@@ -5,7 +5,7 @@ PlayerGameObject::PlayerGameObject() : LiveObject(kPlayerBaseHp) {
     auto factory = WeakFactory::getFactory();
     for (int i = 0; i < factory->cardAmount(); ++i) {
         for (int j = 0; j < kStartCardAmount; ++j) {
-            cardDeque.push_back(factory->getCard(i));
+            cardDeque.push_back((factory->getCard(i))->toCard());
         }
     }
 }
@@ -37,10 +37,10 @@ int PlayerGameObject::sayCardPerTurnAmount() {
 void PlayerGameObject::addReward(Reward* newReward) {
     RewardType type = newReward->sayType();
     if (type == RewardType::Card) {
-        cardDeque.push_back(dynamic_cast<Card*>(newReward));
+        cardDeque.push_back(newReward->toCard());
     }
     if (type == RewardType::Artifact) {
-        artifacts.push_back(dynamic_cast<Artifact*>(newReward));
+        artifacts.push_back(newReward->toArtifact());
     }
 }
 

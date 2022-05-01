@@ -44,11 +44,8 @@ void ArtifactFactory::clear() {
     }
 }
 
-Artifact* ArtifactFactory::getArtifact(int index) {
-    if ((*allArtifacts)[index]->sayArtifactType() == ArtifactType::DamageArtifact) {
-        return new DamageArtifact(*dynamic_cast<DamageArtifact*>((*allArtifacts)[index]));
-    }
-    return new Artifact(*(*allArtifacts)[index]);
+Reward* ArtifactFactory::getArtifact(int index) {
+    return ((*allArtifacts)[index])->clone();
 }
 
 int ArtifactFactory::artifactAmount() {

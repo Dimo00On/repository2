@@ -22,6 +22,9 @@ public:
     std::pair<int, int> realDamDef(LiveObject* user);
     virtual ~Card() = default;
     virtual CardType sayCardType() {return CardType::None;};
+    Card* toCard() final {return this;};
+    Artifact* toArtifact() final {return nullptr;};
+    Reward* clone() override = 0;
 };
 
 void createCards();

@@ -15,18 +15,21 @@ add_subdirectory(src/Map)
 add_subdirectory(src/Room)
 add_subdirectory(src/RoomFactory)
 add_subdirectory(src/Types)
+add_subdirectory(src/Reward)
+add_subdirectory(src/Interface)
 add_executable(TheBestGameInTheWorld
-        main.cpp
-        main.h
-        src/Const/Constants.h)
+        main.cpp)
 target_link_libraries(TheBestGameInTheWorld
         AbstractFactory
         Artifact
+        Reward #после Artifact
         Card
         Enemy
         Game
         LiveObject
         Map
-        Room
         RoomFactory
-        Types)
+        Room #после RoomFactory
+        Types
+        Interface) #очень важен порядок
+

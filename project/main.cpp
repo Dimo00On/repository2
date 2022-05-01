@@ -3,7 +3,8 @@
 #include "src/AbstractFactory/WeakFactory.h"
 #include "src/AbstractFactory/CommonFactory.h"
 #include "src/AbstractFactory/StrongFactory.h"
-#include "src/Game/InterfaceChooser.h"
+#include "src/Interface/InterfaceChooser.h"
+#include "src/Interface/ConsoleInterface.h"
 
 void preCalc() {
     createArtifacts();
@@ -25,11 +26,21 @@ void clear() {
 int main() {
     //создать карты, атаки, артефакты и тд
     preCalc();
-    Client client;
+    InterfaceChooser interface;
+    if (kChosenInterface == Interface::Console) {
+        interface.setStrategy(new ConsoleInterface);
+    }
+    if (kChosenInterface == Interface::Graphic) {
+        //interface.setStrategy(new GraphicInterface);
+    }
+    if (kChosenInterface == Interface::Network) {
+        //interface.setStrategy(new NetworkInterface);
+    }
+    Client client(interface);
     srand(time(0));
     while (!timeToExit) {
-        InterfaceChooser::write(kChosenInterface, "open",  nullptr, nullptr);
-        int answer = InterfaceChooser::read(kChosenInterface);
+        interface.write("open",  nullptr, nullptr);
+        int answer = interface.read();
         if (answer == 1) {
             client.newGame();
         }
@@ -37,10 +48,10 @@ int main() {
             timeToExit = true;
         }
         if (answer != 0 && answer != 1) {
-            InterfaceChooser::write(kChosenInterface, "unknown", nullptr, nullptr);
+            interface.write("unknown", nullptr, nullptr);
         }
     }
     clear();
-    InterfaceChooser::write(kChosenInterface, "close", nullptr, nullptr);
+    interface.write("close", nullptr, nullptr);
     return 0;
 }

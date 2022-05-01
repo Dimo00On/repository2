@@ -73,12 +73,10 @@ void ConsoleInterface::showMap(Map& map, std::pair<int, int>& position) {
                         std::cout << " . |";
                     } else {
                         if (thisRoom->sayType() == RoomType::Chill) {
-                            auto room = dynamic_cast<ChillRoom*>(map.showMap()[j][i]);
-                            std::cout << " " << static_cast<int>(room->sayDifficulty()) << " |";
+                            std::cout << " " << static_cast<int>(thisRoom->sayDifficulty()) << " |";
                         }
                         if (thisRoom->sayType() == RoomType::Combat) {
-                            auto room = dynamic_cast<CombatRoom *>(map.showMap()[j][i]);
-                            std::cout << " " << static_cast<int>(room->sayDifficulty()) << " |";
+                            std::cout << " " << static_cast<int>(thisRoom->sayDifficulty()) << " |";
                         }
                         if (thisRoom->sayType() == RoomType::End) {
                             std::cout << "end|";
@@ -149,7 +147,7 @@ void ConsoleInterface::showCard(int number, int damage, int defence, const std::
     std::cout << defence << " shield to you. " << *description << '\n';
 }
 
-int ConsoleInterface::readNumber() {
+int ConsoleInterface::read() {
     std::string command;
     std::cin >> command;
     int answer = -1;

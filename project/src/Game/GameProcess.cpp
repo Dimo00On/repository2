@@ -1,13 +1,9 @@
 #include "GameProcess.h"
-#include "../Enemy/WeakEnemy.h"
-#include "../Enemy/CommonEnemy.h"
-#include "../Enemy/StrongEnemy.h"
-#include "InterfaceChooser.h"
-
 
 extern bool timeToExit;
 
-GameProcess::GameProcess(Map& newMap, PlayerGameObject& newPlayer) : map(newMap), playerGameObject(newPlayer) {
+GameProcess::GameProcess(Map& newMap, PlayerGameObject& newPlayer, InterfaceChooser newInterface) :
+        interface(newInterface), map(newMap), playerGameObject(newPlayer) {
     position = std::make_pair(0, 0);
 }
 
@@ -16,7 +12,7 @@ void GameProcess::startChill() {
     std::vector<int> temp(1);
     temp[0] = recover;
     playerGameObject.takeDamage(-recover);
-    InterfaceChooser::write(kChosenInterface, "rest", &temp, nullptr);
+    interface.write( "rest", &temp, nullptr);
 }
 
 Room* GameProcess::changeRoom(std::pair<int, int> direction) {
@@ -29,9 +25,9 @@ Room* GameProcess::changingPosition() {
     bool ok = false;
     std::pair<int, int> direction;
     while (!ok && !timeToExit) {
-        InterfaceChooser::showMap(kChosenInterface, map, position);
-        InterfaceChooser::showPaths(kChosenInterface, map, position);
-        int answer = InterfaceChooser::read(kChosenInterface);
+        interface.showMap( map, position);
+        interface.showPaths( map, position);
+        int answer = interface.read();
         if (answer == 0) {
             timeToExit = true;
             break;
@@ -67,13 +63,131 @@ Room* GameProcess::changingPosition() {
             direction.second = 1;
         }
         if (!ok) {
-            InterfaceChooser::write(kChosenInterface, "unknown", nullptr, nullptr);
+            interface.write( "unknown", nullptr, nullptr);
         }
     }
     return changeRoom(direction);
 }
 
-void GameProcess::startCombat(AbstractEnemy* enemy) {
+void GameProcess::combatUpdatePlayer(int& actionAmount, int& cardPerTurnAmount,
+                               std::vector<Card*>& hand, std::deque<Card*>& cardDeque) {
+    playerGameObject.effectsTimeDecrease();
+    actionAmount = playerGameObject.sayActionAmount();
+    cardPerTurnAmount = playerGameObject.sayCardPerTurnAmount();
+    const std::vector<EffectType>& effects = playerGameObject.sayEffects();
+    for (const auto & effect : effects) {
+        actionAmount += effect.sayActionAmount();
+        cardPerTurnAmount += effect.sayCardPerTurnAmount();
+    }
+    for (int i = 0; i < cardPerTurnAmount; ++i) {
+        if (cardDeque.empty()) {
+            auto rng = std::default_random_engine {};
+            cardDeque = playerGameObject.getDeque();
+            std::shuffle(cardDeque.begin(), cardDeque.end(), rng);
+        }
+        hand.push_back(cardDeque.front());
+        cardDeque.pop_front();
+    }
+    int newDefence = playerGameObject.sayDefence() / kDefenceDecreaseScalePerTurn;
+    playerGameObject.takeDefence(newDefence - playerGameObject.sayDefence());
+}
+
+void GameProcess::combatUpdateEnemy(LiveObject* liveEnemy, AbstractEnemy* enemy) {
+    liveEnemy->effectsTimeDecrease();
+    int newDefence = liveEnemy->sayDefence() / kDefenceDecreaseScalePerTurn;
+    liveEnemy->takeDefence(newDefence - liveEnemy->sayDefence());
+    enemy->attack(playerGameObject);
+}
+
+void GameProcess::combatEnd(AbstractEnemy* enemy, std::vector<int>& tempValues,
+                                std::vector<const std::string*>& tempStrings) {
+    playerGameObject.clearEffects();
+    playerGameObject.takeDefence(-playerGameObject.sayDefence());
+    auto reward = enemy->getReward();
+    enemy->setReward(nullptr);
+    playerGameObject.addReward(reward);
+    tempStrings[0] = reward->sayDescription();
+    if (reward->sayType() == RewardType::Card) {
+        auto card = reward->toCard();
+        std::pair<int, int> damDef = card->realDamDef(&playerGameObject);
+        tempValues[1] = damDef.first;
+        tempValues[2] = damDef.second;
+        tempValues[0] = static_cast<int>(card->sayCardType());
+    } else {
+        tempValues[0] = 3;
+    }
+}
+
+void GameProcess::sendCombatStatus(AbstractEnemy* enemy, LiveObject* liveEnemy,
+                                   int handSize, int& actionAmount, std::vector<Card*>& hand,
+                                   std::vector<bool>& used, std::vector<bool>& usedArtifact) {
+    std::pair<int, int> damDef = enemy->recalculate(playerGameObject);
+    std::vector<int> tempValues(7);
+    tempValues[0] = damDef.first;
+    tempValues[1] = damDef.second;
+    tempValues[2] = liveEnemy->sayHp();
+    tempValues[3] = liveEnemy->sayDefence();
+    tempValues[4] = actionAmount;
+    tempValues[5] = playerGameObject.sayHp();
+    tempValues[6] = playerGameObject.sayDefence();
+    interface.showCombatStatus( tempValues,
+                                       liveEnemy->getEffects(), playerGameObject.getEffects());
+    for (int i = 0; i < handSize; ++i) {
+        if (!used[i]) {
+            std::pair<int, int> cardDamDef = hand[i]->realDamDef(&playerGameObject);
+            const std::string* description = hand[i]->sayDescription();
+            interface.showCard( i + 1, cardDamDef.first, cardDamDef.second, description);
+        }
+    }
+    int counter = 0;
+    for (auto& artifact : playerGameObject.getArtifacts()) {
+        if (artifact->isCombat() && artifact->isActive() && !usedArtifact[counter]) {
+            ++counter;
+            interface.showArtifact(                     counter + handSize, artifact->sayDescription());
+        }
+    }
+}
+
+void GameProcess::playerDoCombatActions(int handSize, int& actionAmount, LiveObject* liveEnemy,
+                                  std::vector<Card*>& hand, std::vector<bool>& used,
+                                  std::vector<bool>& usedArtifact) {
+    bool ok = false;
+    while (!ok) {
+        int answer = interface.read();
+        if (answer == 0) {
+            ok = true;
+            timeToExit = true;
+        }
+        if (answer > 0) {
+            for (int i = 0; i < handSize; ++i) {
+                if (answer == i + 1 && !used[answer - 1]) {
+                    ok = true;
+                    used[answer - 1] = true;
+                    hand[i]->use(liveEnemy, &playerGameObject);
+                }
+                //hand.erase(hand.begin() + i);
+            }
+            int counter = 0;
+            for (auto& artifact : playerGameObject.getArtifacts()) {
+                if (artifact->isCombat() && artifact->isActive()) {
+                    ++counter;
+                    if (answer == handSize + counter) {
+                        ok = true;
+                        usedArtifact[counter - 1] = true;
+                        artifact->doSomething(&playerGameObject, liveEnemy);
+                    }
+                }
+            }
+        }
+        if (!ok) {
+            interface.write( "unknown card", nullptr, nullptr);
+        } else {
+            --actionAmount;
+        }
+    }
+}
+
+void GameProcess::startCombat(AbstractEnemy* enemy) {//TODO сделать класс состояние combat
     bool win = false;
     std::deque<Card*> cardDeque;
     auto liveEnemy = dynamic_cast<LiveObject*>(enemy);
@@ -91,127 +205,33 @@ void GameProcess::startCombat(AbstractEnemy* enemy) {
     }
     while (!win && !timeToExit) {
         if (playerGameObject.sayHp() <= 0) {
-            InterfaceChooser::write(kChosenInterface, "dead", nullptr, nullptr);
-            std::string command;
-            std::cin >> command;
+            interface.write( "dead", nullptr, nullptr);
+            interface.read();
             timeToExit = true;
             break;
         }
-        playerGameObject.effectsTimeDecrease();
-        actionAmount = playerGameObject.sayActionAmount();
-        cardPerTurnAmount = playerGameObject.sayCardPerTurnAmount();
-        const std::vector<EffectType>& effects = playerGameObject.sayEffects();
-        for (const auto & effect : effects) {
-            actionAmount += effect.sayActionAmount();
-            cardPerTurnAmount += effect.sayCardPerTurnAmount();
-        }
         std::vector<Card*> hand;
+        combatUpdatePlayer(actionAmount, cardPerTurnAmount, hand, cardDeque);
         std::vector<bool> used(cardPerTurnAmount, false);
         std::vector<bool> usedArtifact(playerGameObject.getArtifacts().size(), false);
-        for (int i = 0; i < cardPerTurnAmount; ++i) {
-            if (cardDeque.empty()) {
-                auto rng = std::default_random_engine {};
-                cardDeque = playerGameObject.getDeque();
-                std::shuffle(cardDeque.begin(), cardDeque.end(), rng);
-            }
-            hand.push_back(cardDeque.front());
-            cardDeque.pop_front();
-        }
-        std::pair<int, int> damDef = enemy->nextAttack(playerGameObject);
-        int startDamage = damDef.first;
-        int newDefence = playerGameObject.sayDefence() / kDefenceDecreaseScalePerTurn;
-        playerGameObject.takeDefence(newDefence - playerGameObject.sayDefence());
+        enemy->nextAttack(playerGameObject);
         while (actionAmount > 0 && !timeToExit && !win) {
-            damDef = enemy->recalculate(playerGameObject);
-            std::vector<int> tempValues(7);
-            tempValues[0] = damDef.first;
-            tempValues[1] = damDef.second;
-            tempValues[2] = liveEnemy->sayHp();
-            tempValues[3] = liveEnemy->sayDefence();
-            tempValues[4] = actionAmount;
-            tempValues[5] = playerGameObject.sayHp();
-            tempValues[6] = playerGameObject.sayDefence();
-            InterfaceChooser::showCombatStatus(kChosenInterface, tempValues,
-                                               liveEnemy->getEffects(), playerGameObject.getEffects());
             int handSize = static_cast<int>(hand.size());
-            for (int i = 0; i < handSize; ++i) {
-                if (!used[i]) {
-                    std::pair<int, int> cardDamDef = hand[i]->realDamDef(&playerGameObject);
-                    const std::string* description = hand[i]->sayDescription();
-                    InterfaceChooser::showCard(kChosenInterface, i + 1, cardDamDef.first, cardDamDef.second, description);
-                }
-            }
-            int counter = 0;
-            for (auto& artifact : playerGameObject.getArtifacts()) {
-                if (artifact->isCombat() && artifact->isActive() && !usedArtifact[counter]) {
-                    ++counter;
-                    InterfaceChooser::showArtifact(kChosenInterface,
-                                                   counter + handSize, artifact->sayDescription());
-                }
-            }
-            bool ok = false;
-            while (!ok) {
-                int answer = InterfaceChooser::read(kChosenInterface);
-                if (answer == 0) {
-                    ok = true;
-                    timeToExit = true;
-                }
-                if (answer > 0) {
-                    for (int i = 0; i < handSize; ++i) {
-                        if (answer == i + 1 && !used[answer - 1]) {
-                            ok = true;
-                            used[answer - 1] = true;
-                            hand[i]->use(liveEnemy, &playerGameObject);
-                        }
-                        //hand.erase(hand.begin() + i);
-                    }
-                    for (auto& artifact : playerGameObject.getArtifacts()) {
-                        if (artifact->isCombat() && artifact->isActive()) {
-                            ++counter;
-                            if (answer == handSize + counter) {
-                                ok = true;
-                                usedArtifact[counter - 1] = true;
-                                artifact->doSomething(&playerGameObject, liveEnemy);
-                            }
-                        }
-                    }
-                }
-                if (!ok) {
-                    InterfaceChooser::write(kChosenInterface, "unknown card", nullptr, nullptr);
-                } else {
-                    --actionAmount;
-                }
-            }
+            sendCombatStatus(enemy, liveEnemy, handSize, actionAmount, hand, used, usedArtifact);
+            playerDoCombatActions(handSize, actionAmount, liveEnemy, hand, used, usedArtifact);
             if (liveEnemy->sayHp() <= 0) {
                 win = true;
             }
         }
         if (!win) {
-            liveEnemy->effectsTimeDecrease();
-            newDefence = liveEnemy->sayDefence() / kDefenceDecreaseScalePerTurn;
-            liveEnemy->takeDefence(newDefence - liveEnemy->sayDefence());
-            enemy->attack(playerGameObject);
+            combatUpdateEnemy(liveEnemy, enemy);
         }
     }
     if (win) {
-        playerGameObject.clearEffects();
-        playerGameObject.takeDefence(-playerGameObject.sayDefence());
         std::vector<int> tempValues(3);
         std::vector<const std::string*> tempStrings(1);
-        auto reward = enemy->getReward();
-        enemy->setReward(nullptr);
-        playerGameObject.addReward(reward);
-        tempStrings[0] = reward->sayDescription();
-        if (reward->sayType() == RewardType::Card) {
-            auto card = dynamic_cast<Card*>(reward);
-            std::pair<int, int> damDef = card->realDamDef(&playerGameObject);
-            tempValues[1] = damDef.first;
-            tempValues[2] = damDef.second;
-            tempValues[0] = static_cast<int>(card->sayCardType());
-        } else {
-            tempValues[0] = 3;
-        }
-        InterfaceChooser::write(kChosenInterface, "kill", &tempValues, &tempStrings);
+        combatEnd(enemy, tempValues, tempStrings);
+        interface.write( "kill", &tempValues, &tempStrings);
     }
     delete enemy;
 }
