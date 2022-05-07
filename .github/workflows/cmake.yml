@@ -28,4 +28,4 @@ jobs:
       with:
          exec-path: ${{github.workspace}}/task6/bin/CTestExe
          report-path: ${{github.workspace}}/task6/test-report
-         working-directory: ${{github.workspace}}/task6
+         working-directory: task6
