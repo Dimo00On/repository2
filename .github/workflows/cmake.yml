@@ -39,4 +39,12 @@ jobs:
       with:
           name: test-report
           path: task6/test-report/report.xml
+    
+    - name: UploadArtifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Distributive
+        path: |
+          task6/bin
+          task6/lib
   
