@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, task6 ]
+  pull_request:
+    branches: [ main, task6 ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: InstallGTest
+      run: git clone https://github.com/google/googletest.git -b release-1.11.0 && pwd && ls &&
+          mv ${{github.workspace}}/googletest ${{github.workspace}}/task6/3rdparty
+      
+    - name: Build
+      run: mkdir ${{github.workspace}}/task6/build && cd ${{github.workspace}}/task6/build && cmake .. &&
+          cmake --build ${{github.workspace}}/task6/build --config ${{env.BUILD_TYPE}}
+    
+    - name: Test
+      uses: akhtyamovpavel/ActionGtestReport@v0.0.9
+      with:
+         exec-path: bin/CTestExe
+         report-path: test-report/report.xml
+         working-directory: task6
+ 
+    - name: Archive report
+      uses: actions/Upload-Artifact@v3
+      with:
+          name: test-report
+          path: task6/test-report/report.xml
+    
+    - name: UploadArtifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Distributive
+        path: |
+          task6/bin
+          task6/lib
