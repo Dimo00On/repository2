@@ -34,7 +34,7 @@ jobs:
     #- name: myCheck
     #  run: ls -lR ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
       
-    - name: Archive code coverage results
+    - name: Archive report
       uses: actions/Upload-Artifact@v3
       with:
           name: test-report
@@ -45,6 +45,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Download report
+      uses: actions/download-artifact@v3
+      with:
+        name: my-artifact
     
     - name: myCheck
       run: ls -lR ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
