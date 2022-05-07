@@ -39,18 +39,4 @@ jobs:
       with:
           name: test-report
           path: task6/test-report/report.xml
-        
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Download report
-      uses: actions/download-artifact@v3
-      with:
-        name: test-report
-    
-    - name: myCheck
-      run: ls -lR ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
   
