@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, task6 ]
+  pull_request:
+    branches: [ main, task6 ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      
