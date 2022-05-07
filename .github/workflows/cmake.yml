@@ -49,7 +49,7 @@ jobs:
     - name: Download report
       uses: actions/download-artifact@v3
       with:
-        name: my-artifact
+        name: test-report
     
     - name: myCheck
       run: ls -lR ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
