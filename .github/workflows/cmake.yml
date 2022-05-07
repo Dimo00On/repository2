@@ -26,6 +26,6 @@ jobs:
     - name: Test
       uses: akhtyamovpavel/ActionGtestReport@v0.0.9
       with:
-         exec-path: task6/bin/CTestExe
-         report-path: task6/test-report
+         exec-path: bin/CTestExe
+         report-path: test-report
          working-directory: task6
