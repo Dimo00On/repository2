@@ -21,5 +21,5 @@ jobs:
       
     - name: Build
       run: mkdir ${{github.workspace}}/task6/build && cd ${{github.workspace}}/task6/build && cmake .. &&
-          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+          cmake --build ${{github.workspace}}/task6/build --config ${{env.BUILD_TYPE}}
       
