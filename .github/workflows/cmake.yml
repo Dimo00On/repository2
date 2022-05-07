@@ -29,3 +29,6 @@ jobs:
          exec-path: bin/CTestExe
          report-path: test-report
          working-directory: task6
+    
+    - name: myCheck
+      run: ls -R ${{github.workspace}}/task6/
