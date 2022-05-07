@@ -22,4 +22,10 @@ jobs:
     - name: Build
       run: mkdir ${{github.workspace}}/task6/build && cd ${{github.workspace}}/task6/build && cmake .. &&
           cmake --build ${{github.workspace}}/task6/build --config ${{env.BUILD_TYPE}}
-      
+    
+    - name: Test
+      uses: akhtyamovpavel/ActionGtestReport@v0.0.9
+      with:
+         exec-path: ${{github.workspace}}/task6/bin/CTestExe
+         report-path: ${{github.workspace}}/task6/test-report
+         working-directory: ${{github.workspace}}/task6
