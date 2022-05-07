@@ -15,7 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
+    - name: InstallGTest
+      run: mkdir ${{github.workspace}}/task6/3rdparty
+      
     - name: Build
       run: mkdir ${{github.workspace}}/task6/build && cd ${{github.workspace}}/task6/build && cmake .. &&
            cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
