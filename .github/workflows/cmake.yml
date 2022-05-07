@@ -30,10 +30,7 @@ jobs:
          exec-path: bin/CTestExe
          report-path: test-report/report.xml
          working-directory: task6
-    
-    #- name: myCheck
-    #  run: ls -lR ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
-      
+ 
     - name: Archive report
       uses: actions/Upload-Artifact@v3
       with:
@@ -47,4 +44,3 @@ jobs:
         path: |
           task6/bin
           task6/lib
-  
