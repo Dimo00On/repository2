@@ -31,4 +31,4 @@ jobs:
          working-directory: task6
     
     - name: myCheck
-      run: ls -R ${{github.workspace}}/task6/test-report
+      run: ls -R ${{github.workspace}}/task6/test-report && cat ${{github.workspace}}/task6/test-report/report.xml
